@@ -1,15 +1,17 @@
 import React, { Fragment, Component } from "react";
 import { Link } from "react-router-dom";
 import Spinner from "../layout/Spinner";
+import Repos from "../repos/Repos";
 import PropTypes from "prop-types";
 
 export class User extends Component {
   //Load users on page load
   componentDidMount() {
     this.props.getUser(this.props.match.params.login);
+    this.props.getUserRepos(this.props.match.params.login);
   }
   render() {
-    const { loading } = this.props;
+    const { loading, repos } = this.props;
     const {
       name,
       company,
@@ -66,7 +68,9 @@ export class User extends Component {
                 {blog && (
                   <Fragment>
                     <h3>Website</h3>
-                    <p>{blog}</p>
+                    <p>
+                      <a href={blog}>{blog}</a>
+                    </p>
                   </Fragment>
                 )}
               </li>
@@ -81,12 +85,14 @@ export class User extends Component {
             </ul>
           </div>
         </div>
-        <div className="card text-center">
+        <div className="card text-center" style={{ border: "none" }}>
           <div className="badge badge-primary">Followers: {followers}</div>
           <div className="badge badge-success">Following: {following}</div>
           <div className="badge badge-light">Public Repos: {public_repos}</div>
           <div className="badge badge-dark">Public Gists: {public_gists}</div>
         </div>
+        <h2>Repositories</h2>
+        <Repos repos={repos} />
       </Fragment>
     );
   }
@@ -95,7 +101,9 @@ export class User extends Component {
 User.propTypes = {
   loading: PropTypes.bool,
   user: PropTypes.object.isRequired,
-  getUser: PropTypes.func.isRequired
+  repos: PropTypes.array.isRequired,
+  getUser: PropTypes.func.isRequired,
+  getUserRepos: PropTypes.func.isRequired
 };
 
 export default User;
