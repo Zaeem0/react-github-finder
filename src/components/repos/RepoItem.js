@@ -5,7 +5,7 @@ const RepoItem = ({ repo }) => {
   return (
     <div className="card">
       <h3>
-        <i class="fas fa-folder" /> <a href={repo.html_url}>{repo.name}</a>
+        <i className="fas fa-folder" /> <a href={repo.html_url}>{repo.name}</a>
       </h3>
       <p>{repo.description}</p>
     </div>
