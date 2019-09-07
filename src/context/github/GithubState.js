@@ -20,15 +20,52 @@ const GithubState = props => {
 
   const [state, dispatch] = useReducer(GithubReducer, initialState);
 
+  //Search users by name and bio
+  const searchUsers = async text => {
+    setLoading();
+
+    let url = `https://api.github.com/search/users?q=${text}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}&`;
+    const res = await axios.get(url);
+
+    dispatch({
+      type: SEARCH_USERS,
+      payload: res.data.items
+    });
+  };
+
+  //Single user result
+  const getUser = async username => {
+    // setLoading();
+    console.log("getting user");
+    let url = `https://api.github.com/users/${username}?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}&`;
+
+    const res = await axios.get(url);
+
+    dispatch({
+      type: GET_USER,
+      payload: res.data
+    });
+  };
+
+  //Reset search results
+  const clearUsers = () => dispatch({ type: CLEAR_USERS });
+
+  const setLoading = () => dispatch({ type: SET_LOADING });
+
   return (
     <GithubContext.Provider
       value={{
         users: state.users,
         user: state.user,
         repos: state.repos,
-        loading: state.loading
+        loading: state.loading,
+        searchUsers,
+        clearUsers,
+        getUser
       }}
-    ></GithubContext.Provider>
+    >
+      {props.children}
+    </GithubContext.Provider>
   );
 };
 

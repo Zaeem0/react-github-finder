@@ -1,15 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import GithubContext from "../../context/github/githubContext";
 
-const Search = ({ searchUsers, showClear, clearUsers, setAlert }) => {
+const Search = ({ setAlert }) => {
+  const githubContext = useContext(GithubContext);
+  const { users, clearUsers } = githubContext;
+  const showClear = users.length > 0;
+
   const [text, setText] = useState("");
-
   const onChange = e => setText(e.target.value);
   const onSubmit = e => {
     e.preventDefault();
     if (text === "") {
       setAlert("Please enter something", "light");
     } else {
-      searchUsers(text);
+      githubContext.searchUsers(text);
       setText("");
     }
   };
