@@ -13,11 +13,19 @@ import {
 console.log(process.env);
 console.log(process.NODE_ENV);
 let clientID = process.env.GITHUB_CLIENT_ID;
-let secret = process.env.GITHUB_SECRET;
+let secret = process.env.GITHUB_CLIENT_SECRET;
 if (process.env.NODE_ENV !== "production") {
   clientID = process.env.REACT_APP_GITHUB_CLIENT_ID;
-  secret = process.env.REACT_APP_GITHUB_SECRET;
+  secret = process.env.REACT_APP_GITHUB_CLIENT_SECRET;
+  console.log("using local env", clientID, secret);
+} else {
+  clientID = process.env.REACT_APP_GITHUB_CLIENT_ID;
+  secret = process.env.REACT_APP_GITHUB_CLIENT_SECRET;
+  console.log("using production env", clientID, secret);
 }
+
+console.log(clientID);
+console.log(secret);
 
 const GithubState = props => {
   const initialState = {
