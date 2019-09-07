@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import Alert from "./components/layout/Alert";
-import Navbar from "./components/layout/Navbar";
+import Navbar from "./components/layout/navbar";
 import Home from "./components/pages/Home";
 import NotFound from "./components/pages/NotFound";
 import About from "./components/pages/About";
