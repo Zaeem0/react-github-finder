@@ -10,6 +10,8 @@ import {
   GET_REPOS
 } from "../types";
 
+console.log(process.env);
+console.log(process.NODE_ENV);
 let clientID = process.env.GITHUB_CLIENT_ID;
 let secret = process.env.GITHUB_SECRET;
 if (process.env.NODE_ENV !== "production") {
