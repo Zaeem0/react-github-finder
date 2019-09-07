@@ -12,8 +12,6 @@ import Search from "./components/users/Search";
 import GithubState from "./context/github/GithubState";
 
 const App = () => {
-  const [repos, setRepos] = useState([]);
-  // const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState(null);
 
   // //Load users on page load
@@ -27,15 +25,6 @@ const App = () => {
   // useEffect(() => {
   //   fetchUsers();
   // }, []);
-
-  //Get user repos
-  const getUserRepos = async username => {
-    // setLoading(true);
-    let url = `https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}&`;
-    const res = await axios.get(url);
-    // setLoading(false);
-    setRepos(res.data);
-  };
 
   //Search validation alert
   const showAlert = (msg, type) => {
@@ -62,13 +51,7 @@ const App = () => {
                 )}
               />
               <Route exact path="/about" component={About} />
-              <Route
-                exact
-                path="/user/:login"
-                render={props => (
-                  <User {...props} getUserRepos={getUserRepos} repos={repos} />
-                )}
-              />
+              <Route exact path="/user/:login" component={User} />
             </Switch>
           </div>
         </div>

@@ -7,8 +7,6 @@ import {
 } from "../types";
 
 export default (state, action) => {
-  console.log("should set loading to false here");
-
   switch (action.type) {
     case SEARCH_USERS:
       return {
@@ -26,6 +24,12 @@ export default (state, action) => {
       return {
         ...state,
         user: action.payload,
+        loading: false
+      };
+    case GET_REPOS:
+      return {
+        ...state,
+        repos: action.payload,
         loading: false
       };
     case SET_LOADING:
