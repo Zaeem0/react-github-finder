@@ -1,0 +1,3 @@
+/about        /about 
+/user/:login  /user/:login
+/*            /404
